@@ -1,6 +1,9 @@
 package hello;
 
+import org.springframework.boot.Banner;
+import org.springframework.boot.Banner.Mode;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.ExitCodeGenerator;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
@@ -11,7 +14,19 @@ import java.util.Arrays;
 @SpringBootApplication
 public class Application {
     public static void main(String[] args) {
-        SpringApplication.run(Application.class, args);
+        SpringApplication sapp = new SpringApplication(Application.class);
+        sapp.setBannerMode(Mode.OFF);
+        sapp.run(args);
+    }
+
+    @Bean
+    public ExitCodeGenerator exitCodeGenerator() {
+        return new ExitCodeGenerator() {
+            @Override
+            public int getExitCode() {
+                return 420;
+            }
+        };
     }
 
     @Bean
